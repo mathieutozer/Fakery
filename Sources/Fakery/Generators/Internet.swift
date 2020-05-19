@@ -1,4 +1,5 @@
 import Foundation
+import Gen
 
 extension Faker {
   public final class Internet: Generator {
@@ -6,15 +7,15 @@ extension Faker {
       super.init(parser: parser)
     }
 
-    public func username(separator: String? = nil) -> String {
+    public func username(separator: String? = nil, using g: inout AnyRandomNumberGenerator) -> String {
       #if swift(>=4.2)
       let lastRandomComponent = Int.random(in: 0..<10000)
       #else
       let lastRandomComponent = arc4random_uniform(10000)
       #endif
       let components: [String] = [
-        generate("name.first_name"),
-        generate("name.last_name"),
+        generate("name.first_name", using: &g),
+        generate("name.last_name", using: &g),
         "\(lastRandomComponent)"
       ]
 
@@ -35,18 +36,18 @@ extension Faker {
                                   .lowercased()
     }
 
-    public func domainName(_ alphaNumericOnly: Bool = true) -> String {
-      return domainWord(alphaNumericOnly: alphaNumericOnly) + "." + domainSuffix()
+    public func domainName(_ alphaNumericOnly: Bool = true, using g: inout AnyRandomNumberGenerator) -> String {
+      return domainWord(alphaNumericOnly: alphaNumericOnly, using: &g) + "." + domainSuffix(using: &g)
     }
 
-    public func domainWord(alphaNumericOnly: Bool = true) -> String {
-      let nameParts = generate("company.name").components(separatedBy: " ")
+    public func domainWord(alphaNumericOnly: Bool = true, using g: inout AnyRandomNumberGenerator) -> String {
+      let nameParts = generate("company.name", using: &g).components(separatedBy: " ")
       var name = ""
 
       if let first = nameParts.first {
         name = first
       } else {
-        name = letterify("?????")
+        name = letterify("?????", using: &g)
       }
 
       let result = alphaNumericOnly ? alphaNumerify(name) : name
@@ -54,19 +55,19 @@ extension Faker {
       return result.lowercased()
     }
 
-    public func domainSuffix() -> String {
-      return generate("internet.domain_suffix")
+    public func domainSuffix(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("internet.domain_suffix", using: &g)
     }
 
-    public func email() -> String {
-      return [username(), domainName()].joined(separator: "@")
+    public func email(using g: inout AnyRandomNumberGenerator) -> String {
+      return [username(using: &g), domainName(using: &g)].joined(separator: "@")
     }
 
-    public func freeEmail() -> String {
-      return [username(), generate("internet.free_email")].joined(separator: "@")
+    public func freeEmail(using g: inout AnyRandomNumberGenerator) -> String {
+      return [username(using: &g), generate("internet.free_email", using: &g)].joined(separator: "@")
     }
 
-    public func safeEmail() -> String {
+    public func safeEmail(using g: inout AnyRandomNumberGenerator) -> String {
       let topLevelDomains = ["org", "com", "net"]
       #if swift(>=4.2)
       let topLevelDomain = topLevelDomains.randomElement() ?? ""
@@ -75,7 +76,7 @@ extension Faker {
       let topLevelDomain = topLevelDomains[Int(arc4random_uniform(count))]
       #endif
 
-      return [username(), "example." + topLevelDomain].joined(separator: "@")
+      return [username(using: &g), "example." + topLevelDomain].joined(separator: "@")
     }
 
     public func password(minimumLength: Int = 8, maximumLength: Int = 16) -> String {
@@ -123,8 +124,8 @@ extension Faker {
       return components.joined(separator: ":")
     }
 
-    public func url() -> String {
-      return "https://\(domainName())/\(username())"
+    public func url(using g: inout AnyRandomNumberGenerator) -> String {
+      return "https://\(domainName(using: &g))/\(username(using: &g))"
     }
 
     public func image(width: Int = 320, height: Int = 200) -> String {
@@ -136,8 +137,8 @@ extension Faker {
       return "https://dummyimage.com/\(width)x\(height)/\(backColorHex)/\(frontColorHex)"
     }
 
-    public func hashtag() -> String {
-      return generate("internet.hashtag")
+    public func hashtag(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("internet.hashtag", using: &g)
     }
 
     // @ToDo - slug

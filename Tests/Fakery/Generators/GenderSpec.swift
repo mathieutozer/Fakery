@@ -14,14 +14,14 @@ final class GenderSpec: QuickSpec {
 
       describe("#type") {
         it("returns the correct text") {
-          let type = gender.type()
+          let type = gender.type(using: &system)
           expect(type).to(equal("Non-binary"))
         }
       }
 
       describe("#binary_type") {
         it("returns the correct text") {
-          let binaryType = gender.binaryType()
+          let binaryType = gender.binaryType(using: &system)
           expect(binaryType).to(equal("Male"))
         }
       }

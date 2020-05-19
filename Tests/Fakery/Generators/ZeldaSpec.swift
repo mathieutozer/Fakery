@@ -14,7 +14,7 @@ final class ZeldaSpec: QuickSpec {
 
       describe("#game") {
         it("returns the correct text") {
-          let game = zelda.game()
+          let game = zelda.game(using: &system)
           expect(game).to(equal("Ocarina of Time"))
         }
       }

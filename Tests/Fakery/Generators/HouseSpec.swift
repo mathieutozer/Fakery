@@ -14,14 +14,14 @@ final class HouseSpec: QuickSpec {
 
       describe("#furniture") {
         it("returns the correct text") {
-          let furniture = house.furniture()
+          let furniture = house.furniture(using: &system)
           expect(furniture).to(equal("chair"))
         }
       }
 
       describe("#room") {
         it("returns the correct text") {
-          let room = house.room()
+          let room = house.room(using: &system)
           expect(room).to(equal("bedroom"))
         }
       }

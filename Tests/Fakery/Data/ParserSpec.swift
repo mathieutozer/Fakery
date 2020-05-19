@@ -26,20 +26,20 @@ final class ParserSpec: QuickSpec {
         describe("#fetch") {
           context("when the key is correct") {
             it("returns the correct text") {
-              let city = parser.fetch("address.city")
+              let city = parser.fetch("address.city", using: &system)
               expect(city).to(equal("North Vadymtown"))
 
-              let name = parser.fetch("name.name")
+              let name = parser.fetch("name.name", using: &system)
               expect(name).to(equal("Mr. Vadym Markov"))
 
-              let team = parser.fetch("team.name")
+              let team = parser.fetch("team.name", using: &system)
               expect(team).to(equal("California owls"))
             }
           }
 
           context("when the key is incorrect") {
             it("returns the empty text") {
-              let dummy = parser.fetch("dummy")
+              let dummy = parser.fetch("dummy", using: &system)
               expect(dummy).to(equal(""))
             }
           }
@@ -74,17 +74,17 @@ final class ParserSpec: QuickSpec {
         describe("#parse:forSubject") {
           context("when the subject is correct") {
             it("returns the correct text") {
-              let text = parser.parse("#{Name.first_name} #{street_suffix} Test", forSubject: "address")
+              let text = parser.parse("#{Name.first_name} #{street_suffix} Test", forSubject: "address", using: &system)
               expect(text).to(equal("Vadym Avenue Test"))
             }
           }
 
           context("when the subject is incorrect") {
             it("returns the passed text") {
-              let text = parser.parse("test", forSubject: "test")
+              let text = parser.parse("test", forSubject: "test", using: &system)
               expect(text).to(equal("test"))
 
-              let text1 = parser.parse("test", forSubject: "address")
+              let text1 = parser.parse("test", forSubject: "address", using: &system)
               expect(text1).to(equal("test"))
             }
           }

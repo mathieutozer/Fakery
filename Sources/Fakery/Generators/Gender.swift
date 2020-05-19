@@ -1,13 +1,14 @@
 import Foundation
+import Gen
 
 extension Faker {
   public final class Gender: Generator {
-    public func type() -> String {
-      return generate("gender.type")
+    public func type(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("gender.type", using: &g)
     }
 
-    public func binaryType() -> String {
-      return generate("gender.binary_type")
+    public func binaryType(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("gender.binary_type", using: &g)
     }
   }
 }

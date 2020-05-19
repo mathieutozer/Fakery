@@ -14,28 +14,28 @@ final class PhoneNumberSpec: QuickSpec {
 
       describe("#phoneNumber") {
         it("generates the correct text") {
-          let phone = phoneNumber.phoneNumber()
+          let phone = phoneNumber.phoneNumber(using: &system)
           expect(phone).to(match("^\\d{3}-\\d{3}-\\d{4}$"))
         }
       }
 
       describe("#cellPhone") {
         it("generates the correct text") {
-          let phone = phoneNumber.cellPhone()
+          let phone = phoneNumber.cellPhone(using: &system)
           expect(phone).to(match("^\\(\\d{3}\\) \\d{3}-\\d{4}$"))
         }
       }
 
       describe("#areaCode") {
         it("generates the correct text") {
-          let areaCode = phoneNumber.areaCode()
+          let areaCode = phoneNumber.areaCode(using: &system)
           expect(areaCode).to(equal("201"))
         }
       }
 
       describe("#exchangeCode") {
         it("generates the correct text") {
-          let exchangeCode = phoneNumber.exchangeCode()
+          let exchangeCode = phoneNumber.exchangeCode(using: &system)
           expect(exchangeCode).to(equal("201"))
         }
       }

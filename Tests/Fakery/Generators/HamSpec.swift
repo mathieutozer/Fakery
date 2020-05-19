@@ -14,7 +14,7 @@ final class HamSpec: QuickSpec {
 
       describe("#name") {
         it("returns the correct text") {
-          let name = ham.name()
+          let name = ham.name(using: &system)
           expect(name).to(equal("Smithfield Ham"))
         }
       }

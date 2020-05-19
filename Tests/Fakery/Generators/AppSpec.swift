@@ -14,21 +14,21 @@ final class AppSpec: QuickSpec {
 
       describe("#name") {
         it("returns the correct text") {
-          let name = app.name()
+          let name = app.name(using: &system)
           expect(name).to(equal("Namfix"))
         }
       }
 
       describe("#version") {
         it("returns the correct text") {
-          let version = app.version()
+          let version = app.version(using: &system)
           expect(version).to(match("^0.\\d.\\d$"))
         }
       }
 
       describe("#author") {
         it("returns the correct text") {
-          let author = app.author()
+          let author = app.author(using: &system)
           expect(author).to(equal("Mr. Vadym Markov"))
         }
       }

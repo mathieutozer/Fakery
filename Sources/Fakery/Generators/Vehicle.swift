@@ -1,15 +1,17 @@
+import Gen
+
 extension Faker {
   public final class Vehicle: Generator {
-    public func manufacture() -> String {
-      return generate("vehicle.manufacture")
+    public func manufacture(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("vehicle.manufacture", using: &g)
     }
 
-    public func make() -> String {
-      return generate("vehicle.makes")
+    public func make(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("vehicle.makes", using: &g)
     }
 
-    public func colors() -> String {
-      return generate("vehicle.colors")
+    public func colors(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("vehicle.colors", using: &g)
     }
   }
 }

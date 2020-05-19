@@ -14,14 +14,14 @@ final class CommerceSpec: QuickSpec {
 
       describe("#color") {
         it("generates the correct text") {
-          let color = commerce.color()
+          let color = commerce.color(using: &system)
           expect(color).to(equal("black"))
         }
       }
 
       describe("#department") {
         it("generates the correct text") {
-          let department = commerce.department(maximum: 3, fixedAmount: true)
+          let department = commerce.department(maximum: 3, fixedAmount: true, using: &system)
           expect(department.range(of: "Music")).notTo(beNil())
           expect(department.range(of: "Video")).notTo(beNil())
           expect(department.range(of: "Development")).notTo(beNil())
@@ -32,7 +32,7 @@ final class CommerceSpec: QuickSpec {
 
       describe("#productName") {
         it("generates the correct text") {
-          let productName = commerce.productName()
+          let productName = commerce.productName(using: &system)
           expect(productName).to(equal("Awesome Wooden Hat"))
         }
       }
@@ -47,12 +47,12 @@ final class CommerceSpec: QuickSpec {
 
       describe("#categories") {
         it("returns the correct amount of categories") {
-          let categories = commerce.categories(3)
+          let categories = commerce.categories(3, using: &system)
           expect(categories.count == 3).to(beTrue())
         }
 
         it("returns the array of unique categories") {
-          let categories = commerce.categories(3)
+          let categories = commerce.categories(3, using: &system)
           var checked: [String] = []
           for category in categories {
             if checked.contains(category) { break }
@@ -65,7 +65,7 @@ final class CommerceSpec: QuickSpec {
 
       describe("#merge:categories") {
         it("returns the correct text") {
-          let text = commerce.merge(categories: ["One", "Two", "Three", "Four"])
+          let text = commerce.merge(categories: ["One", "Two", "Three", "Four"], using: &system)
           expect(text).to(equal("One, Two, Three & Four"))
         }
       }

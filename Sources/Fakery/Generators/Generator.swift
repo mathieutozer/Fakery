@@ -1,4 +1,5 @@
 import Foundation
+import Gen
 
 extension Faker {
   public class Generator {
@@ -18,8 +19,8 @@ extension Faker {
       dateFormatter.dateFormat = "yyyy-MM-dd"
     }
 
-    public func generate(_ key: String) -> String {
-      return parser.fetch(key)
+    public func generate(_ key: String, using g: inout AnyRandomNumberGenerator) -> String {
+      return parser.fetch(key, using: &g)
     }
 
     // MARK: - Filling
@@ -38,7 +39,7 @@ extension Faker {
       })
     }
 
-    public func letterify(_ string: String) -> String {
+    public func letterify(_ string: String, using g: inout AnyRandomNumberGenerator) -> String {
       return String(string.enumerated().map { _, item in
         #if swift(>=4.2)
         let char = Constants.uppercaseLetters.randomElement() ?? Character("")
@@ -50,8 +51,8 @@ extension Faker {
       })
     }
 
-    public func bothify(_ string: String) -> String {
-      return letterify(numerify(string))
+    public func bothify(_ string: String, using g: inout AnyRandomNumberGenerator) -> String {
+      return letterify(numerify(string), using: &g)
     }
 
     public func alphaNumerify(_ string: String) -> String {
@@ -61,13 +62,13 @@ extension Faker {
                                          range: nil)
     }
 
-    public func randomWordsFromKey(_ key: String) -> String {
+    public func randomWordsFromKey(_ key: String, using g: inout AnyRandomNumberGenerator) -> String {
       var string = ""
 
       var list = [String]()
       if let wordsList = parser.fetchRaw(key) as? [[String]] {
         for words in wordsList {
-          if let item = words.random() {
+          if let item = words.random(using: &g) {
             list.append(item)
           }
         }

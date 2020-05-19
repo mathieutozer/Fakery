@@ -1,4 +1,5 @@
 import Foundation
+import Gen
 #if os(Linux)
 public struct Location {
   let latitude: Double
@@ -11,74 +12,74 @@ public typealias Location = CLLocationCoordinate2D
 
 extension Faker {
   public final class Address: Generator {
-    public func city() -> String {
-      return generate("address.city")
+    public func city(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.city", using: &g)
     }
 
-    public func streetName() -> String {
-      return generate("address.street_name")
+    public func streetName(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.street_name", using: &g)
     }
 
-    public func secondaryAddress() -> String {
-      return numerify(generate("address.secondary_address"))
+    public func secondaryAddress(using g: inout AnyRandomNumberGenerator) -> String {
+      return numerify(generate("address.secondary_address", using: &g))
     }
 
-    public func streetAddress(includeSecondary: Bool = false) -> String {
-      var streetAddress = numerify(generate("address.street_address"))
+    public func streetAddress(includeSecondary: Bool = false, using g: inout AnyRandomNumberGenerator) -> String {
+      var streetAddress = numerify(generate("address.street_address", using: &g))
 
       if includeSecondary {
-        streetAddress += " " + secondaryAddress()
+        streetAddress += " " + secondaryAddress(using: &g)
       }
 
       return streetAddress
     }
 
-    public func buildingNumber() -> String {
-      return bothify(generate("address.building_number"))
+    public func buildingNumber(using g: inout AnyRandomNumberGenerator) -> String {
+      return bothify(generate("address.building_number", using: &g), using: &g)
     }
 
-    public func postcode(stateAbbreviation: String = "") -> String {
+    public func postcode(stateAbbreviation: String = "", using g: inout AnyRandomNumberGenerator) -> String {
       if stateAbbreviation.isEmpty {
-        return bothify(generate("address.postcode"))
+        return bothify(generate("address.postcode", using: &g), using: &g)
       }
 
-      return bothify(generate("address.postcode_by_state.\(stateAbbreviation)"))
+      return bothify(generate("address.postcode_by_state.\(stateAbbreviation)", using: &g), using: &g)
     }
 
-    public func timeZone() -> String {
-      return generate("address.time_zone")
+    public func timeZone(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.time_zone", using: &g)
     }
 
-    public func streetSuffix() -> String {
-      return generate("address.street_suffix")
+    public func streetSuffix(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.street_suffix", using: &g)
     }
 
-    public func citySuffix() -> String {
-      return generate("address.city_suffix")
+    public func citySuffix(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.city_suffix", using: &g)
     }
 
-    public func cityPrefix() -> String {
-      return generate("address.city_prefix")
+    public func cityPrefix(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.city_prefix", using: &g)
     }
 
-    public func stateAbbreviation() -> String {
-      return generate("address.state_abbr")
+    public func stateAbbreviation(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.state_abbr", using: &g)
     }
 
-    public func state() -> String {
-      return generate("address.state")
+    public func state(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.state", using: &g)
     }
 
-    public func county() -> String {
-      return generate("address.county")
+    public func county(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.county", using: &g)
     }
 
-    public func country() -> String {
-      return generate("address.country")
+    public func country(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.country", using: &g)
     }
 
-    public func countryCode() -> String {
-      return generate("address.country_code")
+    public func countryCode(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.country_code", using: &g)
     }
 
     public func latitude() -> Double {

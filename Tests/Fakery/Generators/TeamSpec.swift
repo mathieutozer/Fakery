@@ -14,21 +14,21 @@ final class TeamSpec: QuickSpec {
 
       describe("#name") {
         it("returns the correct text") {
-          let name = team.name()
+          let name = team.name(using: &system)
           expect(name).to(equal("California owls"))
         }
       }
 
       describe("#creature") {
         it("returns the correct text") {
-          let creature = team.creature()
+          let creature = team.creature(using: &system)
           expect(creature).to(equal("owls"))
         }
       }
 
       describe("#state") {
         it("returns the correct text") {
-          let state = team.state()
+          let state = team.state(using: &system)
           expect(state).to(equal("California"))
         }
       }

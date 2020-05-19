@@ -16,14 +16,14 @@ final class InternetSpec: QuickSpec {
       describe("#username") {
         context("without separator - by default") {
           it("returns the correct text") {
-            let username = internet.username()
+            let username = internet.username(using: &system)
             expect(username).to(match("^[A-Za-z]+(\\d+)?$"))
           }
         }
 
         context("with provided separator") {
           it("returns the correct text") {
-            let username = internet.username(separator: "_")
+            let username = internet.username(separator: "_", using: &system)
             if username.lengthOfBytes(using: String.Encoding.utf8) > 5 {
               expect(username.contains("_")).notTo(beNil())
             } else {
@@ -33,42 +33,42 @@ final class InternetSpec: QuickSpec {
         }
 
         it("doesn't have the ' symbol in the result") {
-          let username = internet.username(separator: "'_'")
+          let username = internet.username(separator: "'_'", using: &system)
           expect(username.contains("'")).to(beFalse())
         }
       }
 
       describe("#domainName") {
         it("returns the correct text") {
-          let domainName = internet.domainName()
+          let domainName = internet.domainName(using: &system)
           expect(domainName).to(equal("markov.com"))
         }
       }
 
       describe("#domainWord") {
         it("returns the correct text") {
-          let domainWord = internet.domainWord()
+          let domainWord = internet.domainWord(using: &system)
           expect(domainWord).to(equal("markov"))
         }
       }
 
       describe("#domainSuffix") {
         it("returns the correct text") {
-          let domainSuffix = internet.domainSuffix()
+          let domainSuffix = internet.domainSuffix(using: &system)
           expect(domainSuffix).to(equal("com"))
         }
       }
 
       describe("#email") {
         it("returns the correct email address") {
-          let email = internet.email()
+          let email = internet.email(using: &system)
           expect(email).to(match(emailFormat))
         }
       }
 
       describe("#freeEmail") {
         it("returns the correct email address") {
-          let freeEmail = internet.freeEmail()
+          let freeEmail = internet.freeEmail(using: &system)
           expect(freeEmail).to(match(emailFormat))
           expect(freeEmail).to(match("^[\\w._%+-]+@gmail.com$"))
         }
@@ -76,7 +76,7 @@ final class InternetSpec: QuickSpec {
 
       describe("#safeEmail") {
         it("returns the correct email address") {
-          let safeEmail = internet.safeEmail()
+          let safeEmail = internet.safeEmail(using: &system)
           expect(safeEmail).to(match(emailFormat))
           expect(safeEmail).to(match("^[\\w._%+-]+@example.(org|com|net)$"))
         }
@@ -130,7 +130,7 @@ final class InternetSpec: QuickSpec {
 
       describe("#url") {
         it("returns the correct URL") {
-          let url = internet.url()
+          let url = internet.url(using: &system)
           expect(url).to(match("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$"))
         }
       }
@@ -162,7 +162,7 @@ final class InternetSpec: QuickSpec {
 
       describe("#hashtag") {
         it("returns the correct hashtag") {
-          let hashtag = internet.hashtag()
+          let hashtag = internet.hashtag(using: &system)
           expect(hashtag).to(equal("#art"))
         }
       }

@@ -1,15 +1,17 @@
+import Gen
+
 extension Faker {
   public final class Team: Generator {
-    public func name() -> String {
-      return generate("team.name")
+    public func name(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("team.name", using: &g)
     }
 
-    public func creature() -> String {
-      return generate("team.creature")
+    public func creature(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("team.creature", using: &g)
     }
 
-    public func state() -> String {
-      return generate("address.state").capitalized
+    public func state(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("address.state", using: &g).capitalized
     }
   }
 }

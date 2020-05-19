@@ -14,7 +14,7 @@ final class CarSpec: QuickSpec {
 
       describe("#brand") {
         it("returns the correct brand name text") {
-          let name = cars.brand()
+          let name = cars.brand(using: &system)
           expect(name).to(equal("BMW"))
         }
       }

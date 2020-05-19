@@ -1,21 +1,23 @@
+import Gen
+
 extension Faker {
   public final class PhoneNumber: Generator {
-    public func phoneNumber() -> String {
-      return numerify(generate("phone_number.formats"))
+    public func phoneNumber(using g: inout AnyRandomNumberGenerator) -> String {
+      return numerify(generate("phone_number.formats", using: &g))
     }
 
-    public func cellPhone() -> String {
-      return numerify(generate("cell_phone.formats"))
-    }
-
-    // US only
-    public func areaCode() -> String {
-      return generate("phone_number.area_code")
+    public func cellPhone(using g: inout AnyRandomNumberGenerator) -> String {
+      return numerify(generate("cell_phone.formats", using: &g))
     }
 
     // US only
-    public func exchangeCode() -> String {
-      return generate("phone_number.exchange_code")
+    public func areaCode(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("phone_number.area_code", using: &g)
+    }
+
+    // US only
+    public func exchangeCode(using g: inout AnyRandomNumberGenerator) -> String {
+      return generate("phone_number.exchange_code", using: &g)
     }
 
     // US only

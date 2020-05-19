@@ -14,7 +14,7 @@ final class LoremSpec: QuickSpec {
 
       describe("#word") {
         it("returns the correct text") {
-          let word = lorem.word()
+          let word = lorem.word(using: &system)
           expect(word).to(match("^[A-Za-z]+$"))
         }
       }
@@ -22,14 +22,14 @@ final class LoremSpec: QuickSpec {
       describe("#words") {
         context("without the amount - 3 words by default") {
           it("returns the expected amount of words") {
-            let word = lorem.words()
+            let word = lorem.words(using: &system)
             expect(word).to(match("^[A-Za-z]+ [A-Za-z]+ [A-Za-z]+$"))
           }
         }
 
         context("with the amount of words") {
           it("returns the expected amount of words") {
-            let word = lorem.words(amount: 2)
+            let word = lorem.words(amount: 2, using: &system)
             expect(word).to(match("^[A-Za-z]+ [A-Za-z]+$"))
           }
         }
@@ -61,14 +61,14 @@ final class LoremSpec: QuickSpec {
       describe("#sentence") {
         context("without the amount - 4 words by default") {
           it("returns the expected amount of words") {
-            let sentence = lorem.sentence()
+            let sentence = lorem.sentence(using: &system)
             expect(sentence).to(match("^[A-Z][A-Za-z]+ [A-Za-z]+ [A-Za-z]+ [A-Za-z]+.$"))
           }
         }
 
         context("with the amount of words") {
           it("returns the expected amount of words") {
-            let sentence = lorem.sentence(wordsAmount: 2)
+            let sentence = lorem.sentence(wordsAmount: 2, using: &system)
             expect(sentence).to(match("^[A-Z][A-Za-z]+ [A-Za-z]+.$"))
           }
         }
@@ -77,14 +77,14 @@ final class LoremSpec: QuickSpec {
       describe("#sentences") {
         context("without the amount - 3 sentences by default") {
           it("returns the expected amount of sentences") {
-            let sentences = lorem.sentences()
+            let sentences = lorem.sentences(using: &system)
             expect(sentences).to(match("^[A-Za-z ]+. [A-Za-z ]+. [A-Za-z ]+.$"))
           }
         }
 
         context("with the amount of sentences") {
           it("returns the expected amount of sentences") {
-            let sentences = lorem.sentences(amount: 2)
+            let sentences = lorem.sentences(amount: 2, using: &system)
             expect(sentences).to(match("^[A-Za-z ]+. [A-Za-z ]+.$"))
           }
         }
@@ -93,14 +93,14 @@ final class LoremSpec: QuickSpec {
       describe("#paragraph") {
         context("without the amount - 3 sentence by default") {
           it("returns the expected amount of sentences") {
-            let paragraph = lorem.paragraph()
+            let paragraph = lorem.paragraph(using: &system)
             expect(paragraph).to(match("^[A-Za-z ]+. [A-Za-z ]+. [A-Za-z ]+.$"))
           }
         }
 
         context("with the amount of words") {
           it("returns the expected amount of sentences") {
-            let sentence = lorem.paragraph(sentencesAmount: 2)
+            let sentence = lorem.paragraph(sentencesAmount: 2, using: &system)
             expect(sentence).to(match("^[A-Za-z ]+. [A-Za-z ]+.$"))
           }
         }
@@ -109,14 +109,14 @@ final class LoremSpec: QuickSpec {
       describe("#paragraphs") {
         context("without the amount - 3 paragraphs by default") {
           it("returns the expected amount of paragraphs") {
-            let paragraphs = lorem.paragraphs()
+            let paragraphs = lorem.paragraphs(using: &system)
             expect(paragraphs).to(match("^[A-Za-z .]+\\n[A-Za-z .]+\\n[A-Za-z .]+$"))
           }
         }
 
         context("with the amount of paragraphs") {
           it("returns the expected amount of paragraphs") {
-            let paragraphs = lorem.paragraphs(amount: 2)
+            let paragraphs = lorem.paragraphs(amount: 2, using: &system)
             expect(paragraphs).to(match("^[A-Za-z .]+\\n[A-Za-z .]+$"))
           }
         }

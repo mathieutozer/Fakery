@@ -14,21 +14,21 @@ final class CatSpec: QuickSpec {
 
       describe("#name") {
         it("returns the correct text") {
-          let name = cat.name()
+          let name = cat.name(using: &system)
           expect(name).to(equal("Shadow"))
         }
       }
 
       describe("#breed") {
         it("returns the correct text") {
-          let breed = cat.breed()
+          let breed = cat.breed(using: &system)
           expect(breed).to(equal("British Semipi-longhair"))
         }
       }
 
       describe("#registry") {
         it("returns the correct text") {
-          let registry = cat.registry()
+          let registry = cat.registry(using: &system)
           expect(registry).to(equal("American Cat Fanciers Association"))
         }
       }

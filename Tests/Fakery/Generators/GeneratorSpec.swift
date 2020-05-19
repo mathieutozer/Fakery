@@ -28,7 +28,7 @@ final class GeneratorSpec: QuickSpec {
 
         describe("#letterify") {
           it("replaces ? with random letters") {
-            let letterified = generator.letterify("This is awes?me")
+            let letterified = generator.letterify("This is awes?me", using: &system)
             expect(letterified.contains("?")).to(beFalse())
             expect(letterified).to(match("^This is awes[A-Za-z]me$"))
           }
@@ -36,7 +36,7 @@ final class GeneratorSpec: QuickSpec {
 
         describe("#bothify") {
           it("replaces # with random numbers and ? with random letters") {
-            let bothified = generator.bothify("#th of ?pril")
+            let bothified = generator.bothify("#th of ?pril", using: &system)
             expect(bothified.contains("#")).to(beFalse())
             expect(bothified.contains("?")).to(beFalse())
             expect(bothified).to(match("^\\dth of [A-Za-z]pril$"))
@@ -52,7 +52,7 @@ final class GeneratorSpec: QuickSpec {
 
         describe("#randomWordsFromKey") {
           it("generates random words") {
-            let phrase = generator.randomWordsFromKey("company.buzzwords")
+            let phrase = generator.randomWordsFromKey("company.buzzwords", using: &system)
             expect(phrase).to(equal("Universal 24 hour software"))
           }
         }

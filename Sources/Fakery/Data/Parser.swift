@@ -1,4 +1,5 @@
 import Foundation
+import Gen
 
 public final class Parser {
   public var locale: String {
@@ -26,7 +27,7 @@ public final class Parser {
 
   // MARK: - Parsing
 
-  public func fetch(_ key: String) -> String {
+  public func fetch(_ key: String, using g: inout AnyRandomNumberGenerator) -> String {
     var parsed = ""
 
     guard let keyData = fetchRaw(key) else {
@@ -37,12 +38,12 @@ public final class Parser {
 
     if let value = keyData as? String {
       parsed = value
-    } else if let array = keyData as? [String], let item = array.random() {
+    } else if let array = keyData as? [String], let item = array.random(using: &g) {
       parsed = item
     }
 
     if parsed.range(of: "#{") != nil {
-      parsed = parse(parsed, forSubject: subject)
+      parsed = parse(parsed, forSubject: subject, using: &g)
     }
 
     return parsed
@@ -58,7 +59,7 @@ public final class Parser {
     return result ?? fetchRaw(key, forLocale: Config.defaultLocale)
   }
 
-  func parse(_ template: String, forSubject subject: String) -> String {
+  func parse(_ template: String, forSubject subject: String, using g: inout AnyRandomNumberGenerator) -> String {
     var text = ""
     let string = NSString(string: template)
     var regex: NSRegularExpression
@@ -97,7 +98,7 @@ public final class Parser {
 
         if methodRange.length > 0 {
           let key = subjectWithDot.lowercased() + string.substring(with: methodRange)
-          text += fetch(key)
+          text += fetch(key, using: &g)
         }
 
         if otherRange.length > 0 {

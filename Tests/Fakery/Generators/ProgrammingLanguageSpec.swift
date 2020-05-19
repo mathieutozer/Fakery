@@ -14,14 +14,14 @@ final class ProgrammingLanguageSpec: QuickSpec {
 
       describe("#name") {
         it("returns the correct text") {
-          let name = language.name()
+          let name = language.name(using: &system)
           expect(name).to(equal("Elixir"))
         }
       }
 
       describe("#creator") {
         it("returns the correct text") {
-          let name = language.creator()
+          let name = language.creator(using: &system)
           expect(name).to(equal("José Valim"))
         }
       }

@@ -14,21 +14,21 @@ final class VehicleSpec: QuickSpec {
 
       describe("#manufacture") {
         it("returns the correct manufacture") {
-          let manufacture = vehicle.manufacture()
+          let manufacture = vehicle.manufacture(using: &system)
           expect(manufacture).to(equal("Volkswagen"))
         }
       }
 
       describe("#make") {
         it("returns the correct make") {
-          let make = vehicle.make()
+          let make = vehicle.make(using: &system)
           expect(make).to(equal("BMW"))
         }
       }
 
       describe("#colors") {
         it("returns the correct color") {
-          let color = vehicle.colors()
+          let color = vehicle.colors(using: &system)
           expect(color).to(equal("Red"))
         }
       }

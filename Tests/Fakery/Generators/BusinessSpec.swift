@@ -14,21 +14,21 @@ final class BusinessSpec: QuickSpec {
 
       describe("#creditCardNumber") {
         it("returns the correct text") {
-          let creditCardNumber = business.creditCardNumber()
+          let creditCardNumber = business.creditCardNumber(using: &system)
           expect(creditCardNumber).to(equal("1234-2121-1221-1211"))
         }
       }
 
       describe("#creditCardType") {
         it("returns the correct text") {
-          let creditCardType = business.creditCardType()
+          let creditCardType = business.creditCardType(using: &system)
           expect(creditCardType).to(equal("visa"))
         }
       }
 
       describe("#creditCardExpiryDate") {
         it("returns the correct text") {
-          let creditCardExpiryDate = business.creditCardExpiryDate()
+          let creditCardExpiryDate = business.creditCardExpiryDate(using: &system)
           expect(creditCardExpiryDate).notTo(beNil())
           if let date = creditCardExpiryDate {
             let dateString = business.dateFormatter.string(from: date)
