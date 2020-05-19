@@ -90,7 +90,7 @@ extension Faker {
       return drand48() * 360.0 - 180.0
     }
 
-    public func coordinate(inRadius radius: Double, fromCenter center: Location) -> Location {
+    public func coordinate(inRadius radius: Double, fromCenter center: Location, using g: inout AnyRandomNumberGenerator) -> Location {
       let y0 = center.latitude
       let x0 = center.longitude
 
@@ -98,13 +98,9 @@ extension Faker {
       let radiusInDegrees = radius / 111300.0
 
       // Random point in circle
-      #if swift(>=4.2)
-      let rhoRandom = Double.random(in: 0..<Double.greatestFiniteMagnitude) / 0xFFFFFFFF
-      let phiRandom = Double.random(in: 0..<Double.greatestFiniteMagnitude) / 0xFFFFFFFF
-      #else
-      let rhoRandom = Double(arc4random()) / 0xFFFFFFFF
-      let phiRandom = Double(arc4random()) / 0xFFFFFFFF
-      #endif
+
+      let rhoRandom = Gen.double(in: 0...Double.greatestFiniteMagnitude).run(using: &g) / 0xFFFFFFFF
+      let phiRandom = Gen.double(in: 0...Double.greatestFiniteMagnitude).run(using: &g) / 0xFFFFFFFF
       let rho = radiusInDegrees * sqrt(rhoRandom)
       let phi = 2 * .pi * phiRandom
       let xPos = rho * cos(phi)

@@ -37,7 +37,7 @@ final class LoremSpec: QuickSpec {
 
       describe("#character") {
         it("returns the correct character") {
-          let char = lorem.character()
+          let char = lorem.character(using: &system)
           expect(char).to(match("^[A-Za-z]$"))
         }
       }
@@ -45,14 +45,14 @@ final class LoremSpec: QuickSpec {
       describe("#characters") {
         context("without the amount - 255 chars by default") {
           it("returns the expected amount of characters") {
-            let chars = lorem.characters()
+            let chars = lorem.characters(using: &system)
             expect(chars).to(match("^[A-Za-z]{255}"))
           }
         }
 
         context("with the amount of chars") {
           it("returns the expected amount of characters") {
-            let chars = lorem.characters(amount: 7)
+            let chars = lorem.characters(amount: 7, using: &system)
             expect(chars).to(match("^[A-Za-z]{7}"))
           }
         }

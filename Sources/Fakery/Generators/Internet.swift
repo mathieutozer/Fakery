@@ -79,8 +79,8 @@ extension Faker {
       return [username(using: &g), "example." + topLevelDomain].joined(separator: "@")
     }
 
-    public func password(minimumLength: Int = 8, maximumLength: Int = 16) -> String {
-      var temp = String.characters(amount: minimumLength)
+    public func password(minimumLength: Int = 8, maximumLength: Int = 16, using g: inout AnyRandomNumberGenerator) -> String {
+      var temp = String.characters(amount: minimumLength, using: &g)
       let diffLength = maximumLength - minimumLength
 
       if diffLength > 0 {
@@ -89,7 +89,7 @@ extension Faker {
         #else
         let diffRandom = Int(arc4random_uniform(UInt32(diffLength + 1)))
         #endif
-        temp += String.characters(amount: diffRandom)
+        temp += String.characters(amount: diffRandom, using: &g)
       }
 
       return temp

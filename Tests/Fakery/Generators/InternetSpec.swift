@@ -85,7 +85,7 @@ final class InternetSpec: QuickSpec {
       describe("#password") {
         context("without min and max - 8...16 by default") {
           it("returns the correct password") {
-            let password = internet.password()
+            let password = internet.password(using: &system)
             let length = password.lengthOfBytes(using: String.Encoding.utf8)
             expect(length >= 8 && length <= 16).to(beTrue())
           }
@@ -93,19 +93,19 @@ final class InternetSpec: QuickSpec {
 
         context("with provided min length and max length") {
           it("returns the correct password when min = max") {
-            let password = internet.password(minimumLength: 3, maximumLength: 3)
+            let password = internet.password(minimumLength: 3, maximumLength: 3, using: &system)
             let length = password.lengthOfBytes(using: String.Encoding.utf8)
             expect(length == 3).to(beTrue())
           }
 
           it("returns the correct password when min > max") {
-            let password = internet.password(minimumLength: 3, maximumLength: 4)
+            let password = internet.password(minimumLength: 3, maximumLength: 4, using: &system)
             let length = password.lengthOfBytes(using: String.Encoding.utf8)
             expect(length >= 3 && length <= 4).to(beTrue())
           }
 
           it("returns the correct password when min < max") {
-            let password = internet.password(minimumLength: 4, maximumLength: 3)
+            let password = internet.password(minimumLength: 4, maximumLength: 3, using: &system)
             let length = password.lengthOfBytes(using: String.Encoding.utf8)
             expect(length == 4).to(beTrue())
           }

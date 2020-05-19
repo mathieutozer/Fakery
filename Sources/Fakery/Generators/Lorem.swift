@@ -17,12 +17,12 @@ extension Faker {
       return words.joined(separator: " ")
     }
 
-    public func character() -> String {
-      return characters(amount: 1)
+    public func character(using g: inout AnyRandomNumberGenerator) -> String {
+      return characters(amount: 1, using: &g)
     }
 
-    public func characters(amount: Int = 255) -> String {
-      return String.characters(amount: amount)
+    public func characters(amount: Int = 255, using g: inout AnyRandomNumberGenerator) -> String {
+      return String.characters(amount: amount, using: &g)
     }
 
     public func sentence(wordsAmount: Int = 4, using g: inout AnyRandomNumberGenerator) -> String {
