@@ -33,13 +33,8 @@ extension Faker {
         + generate("commerce.product_name.product", using: &g)
     }
 
-    public func price() -> Double {
-      let arc4randoMax: Double = 0x100000000
-      #if swift(>=4.2)
-      return floor(Double((Double(UInt32.random(in: 0..<UInt32.max)) / arc4randoMax) * 100.0) * 100) / 100.0
-      #else
-      return floor(Double((Double(arc4random()) / arc4randoMax) * 100.0) * 100) / 100.0
-      #endif
+    public func price(using g: inout AnyRandomNumberGenerator) -> Double {
+      Gen.double(in: 0...Double.infinity).run(using: &g)
     }
 
     // MARK: - Helpers
