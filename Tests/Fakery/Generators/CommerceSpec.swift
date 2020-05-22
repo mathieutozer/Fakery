@@ -39,7 +39,7 @@ final class CommerceSpec: QuickSpec {
 
       describe("#price") {
         it("generates the correct number") {
-          let price = commerce.price()
+          let price = commerce.price(using: &system)
           expect(price > 0.0).to(beTrue())
           expect(price <= 100.0).to(beTrue())
         }

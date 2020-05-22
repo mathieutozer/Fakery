@@ -148,14 +148,14 @@ final class AddressSpec: QuickSpec {
 
       describe("#latitude") {
         it("returns non-zero value") {
-          let latitude = address.latitude()
+          let latitude = address.latitude(using: &system)
           expect(latitude).notTo(equal(0))
         }
       }
 
       describe("#longitude") {
         it("returns non-zero value") {
-          let longitude = address.longitude()
+          let longitude = address.longitude(using: &system)
           expect(longitude).notTo(equal(0))
         }
       }

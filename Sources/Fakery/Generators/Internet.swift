@@ -8,11 +8,7 @@ extension Faker {
     }
 
     public func username(separator: String? = nil, using g: inout AnyRandomNumberGenerator) -> String {
-      #if swift(>=4.2)
-      let lastRandomComponent = Int.random(in: 0..<10000)
-      #else
-      let lastRandomComponent = arc4random_uniform(10000)
-      #endif
+      let lastRandomComponent = Gen.int(in: 0...10000).run(using: &g)
       let components: [String] = [
         generate("name.first_name", using: &g),
         generate("name.last_name", using: &g),
@@ -20,11 +16,7 @@ extension Faker {
       ]
 
       let randomCount = components.count - 1
-      #if swift(>=4.2)
-      let count = Int.random(in: 0..<randomCount) + randomCount
-      #else
-      let count = Int(arc4random_uniform(UInt32(randomCount)) + UInt32(randomCount))
-      #endif
+      let count = Gen.int(in: 0...randomCount).run(using: &g)
 
       var gap = ""
       if let sep = separator {
