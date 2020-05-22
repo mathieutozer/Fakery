@@ -82,12 +82,12 @@ extension Faker {
       return generate("address.country_code", using: &g)
     }
 
-    public func latitude() -> Double {
-      return drand48() * 180.0 - 90.0
+    public func latitude(using g: inout AnyRandomNumberGenerator) -> Double {
+      return  Gen.double(in: -90...90).run(using: &g)
     }
 
-    public func longitude() -> Double {
-      return drand48() * 360.0 - 180.0
+    public func longitude(using g: inout AnyRandomNumberGenerator) -> Double {
+      Gen.double(in: -180...80).run(using: &g)
     }
 
     public func coordinate(inRadius radius: Double, fromCenter center: Location, using g: inout AnyRandomNumberGenerator) -> Location {
